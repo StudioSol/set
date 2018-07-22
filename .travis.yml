@@ -1,0 +1,10 @@
+language: go
+go:
+  - 1.9
+go_import_path: github.com/StudioSol/set
+install:
+  - make dependency
+script:
+  - make test
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
