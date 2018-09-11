@@ -117,7 +117,7 @@ func (l *linkedHashMap) Remove(key interface{}) bool {
 			innerCurrent = innerCurrent.after
 		}
 
-		if shouldNotUpdate {
+		if !shouldNotUpdate {
 			innerCurrent.before.after = innerCurrent.after
 			innerCurrent.after.before = innerCurrent.before
 		}
