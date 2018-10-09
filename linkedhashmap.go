@@ -12,9 +12,9 @@ type entry struct {
 	after  *entry
 }
 
-// linkedHashMap stores data in key-value pairs while mantaining insertion order
+// linkedHashMap stores data in key-value pairs while maintaining insertion order
 //
-// - Uses a doubly linked list to mantain insertion order
+// - Uses a doubly linked list to maintain insertion order
 type linkedHashMap struct {
 	table         map[uint64]*entry
 	header        *entry
@@ -152,7 +152,7 @@ func (l *linkedHashMap) hash(key interface{}) uint64 {
 	return h.Sum64()
 }
 
-func newlinkedHashMap() *linkedHashMap {
+func newLinkedHashMap() *linkedHashMap {
 	return &linkedHashMap{
 		table: make(map[uint64]*entry),
 	}

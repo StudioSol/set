@@ -5,7 +5,7 @@ package set
 //
 // - Does not allow storing duplicated values
 // - Does not allow storing nil values
-// - Mantains insertion order over iteration
+// - Maintains insertion order over iteration
 type LinkedHashSetINT64 struct {
 	linkedHashMap *linkedHashMap
 }
@@ -73,7 +73,7 @@ func (l *LinkedHashSetINT64) InArray(search int64) bool {
 // NewLinkedHashSetINT64 returns a new LinkedHashSetINT64 with the provided items
 func NewLinkedHashSetINT64(ints ...int64) *LinkedHashSetINT64 {
 	lhm := &LinkedHashSetINT64{
-		linkedHashMap: newlinkedHashMap(),
+		linkedHashMap: newLinkedHashMap(),
 	}
 	if len(ints) > 0 {
 		lhm.Add(ints...)

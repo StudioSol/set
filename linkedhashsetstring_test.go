@@ -1,17 +1,16 @@
-package set_test
+package set
 
 import (
 	"strconv"
 	"testing"
 
-	"github.com/StudioSol/set"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-var giantStringSlice = make([]string, giangSliceLength)
+var giantStringSlice = make([]string, giantSliceLength)
 
 func init() {
-	for i := 0; i < giangSliceLength; i++ {
+	for i := 0; i < giantSliceLength; i++ {
 		giantStringSlice[i] = strconv.Itoa(i + 1)
 	}
 }
@@ -19,13 +18,13 @@ func init() {
 func TestLinkedHashSetStringAdd(t *testing.T) {
 	Convey("Given LinkedHashSetString.Add", t, func() {
 		Convey("It should not store elements that are already on the Set", func() {
-			set := set.NewLinkedHashSetString()
+			set := NewLinkedHashSetString()
 			set.Add("0", "0")
 			set.Add("0")
 			So(set.Length(), ShouldEqual, 1)
 		})
 		Convey("It should store elements with the correct constraints", func() {
-			set := set.NewLinkedHashSetString()
+			set := NewLinkedHashSetString()
 			set.Add("0", "1", "2", "99", "93", "32", "00", "01", "2")
 			So(set.Length(), ShouldEqual, 8)
 		})
@@ -35,7 +34,7 @@ func TestLinkedHashSetStringAdd(t *testing.T) {
 func TestLinkedHashSetStringRemove(t *testing.T) {
 	Convey("Given LinkedHashSetString.Remove", t, func() {
 		Convey("It should remove elements from a Set", func() {
-			set := set.NewLinkedHashSetString()
+			set := NewLinkedHashSetString()
 			set.Add(giantStringSlice...)
 
 			// first element
@@ -55,7 +54,7 @@ func TestLinkedHashSetStringRemove(t *testing.T) {
 func TestLinkedHashSetStringIter(t *testing.T) {
 	Convey("Given LinkedHashSetString.Iter", t, func() {
 		Convey("It should iterate over all elements of the set respecting the insertion order", func() {
-			set := set.NewLinkedHashSetString()
+			set := NewLinkedHashSetString()
 			set.Add(giantStringSlice...)
 
 			var (
@@ -70,7 +69,7 @@ func TestLinkedHashSetStringIter(t *testing.T) {
 				i++
 			}
 			So(somethingWentWrong, ShouldBeFalse)
-			So(i, ShouldEqual, giangSliceLength)
+			So(i, ShouldEqual, giantSliceLength)
 		})
 	})
 }
@@ -78,7 +77,7 @@ func TestLinkedHashSetStringIter(t *testing.T) {
 func TestLinkedHashSetStringLength(t *testing.T) {
 	Convey("Given LinkedHashSetString.Length", t, func() {
 		Convey("It should return the correct length of the Set", func() {
-			set := set.NewLinkedHashSetString()
+			set := NewLinkedHashSetString()
 			set.Add("0", "1", "2", "99", "93", "32", "00", "01", "2")
 			So(set.Length(), ShouldEqual, 8)
 			set.Remove("1")
@@ -90,7 +89,7 @@ func TestLinkedHashSetStringLength(t *testing.T) {
 		})
 
 		Convey("It should return the correct length of the Set no matter the length of the Set", func() {
-			set := set.NewLinkedHashSetString()
+			set := NewLinkedHashSetString()
 			set.Add(giantStringSlice...)
 			So(set.Length(), ShouldEqual, len(giantStringSlice))
 		})
@@ -100,21 +99,21 @@ func TestLinkedHashSetStringLength(t *testing.T) {
 func TestLinkedHashSetStringInArray(t *testing.T) {
 	Convey("Given LinkedHashSetString.InArray", t, func() {
 		Convey("When the element is in the list", func() {
-			set := set.NewLinkedHashSetString("02", "04", "06", "08")
+			set := NewLinkedHashSetString("02", "04", "06", "08")
 			So(set.InArray("02"), ShouldBeTrue)
 			So(set.InArray("04"), ShouldBeTrue)
 			So(set.InArray("06"), ShouldBeTrue)
 			So(set.InArray("08"), ShouldBeTrue)
 		})
 		Convey("When the element is not in the list", func() {
-			set := set.NewLinkedHashSetString("02", "04", "06", "08")
+			set := NewLinkedHashSetString("02", "04", "06", "08")
 			So(set.InArray("01"), ShouldBeFalse)
 			So(set.InArray("03"), ShouldBeFalse)
 			So(set.InArray("05"), ShouldBeFalse)
 			So(set.InArray("07"), ShouldBeFalse)
 		})
 		Convey("When the list is empty", func() {
-			set := set.NewLinkedHashSetString()
+			set := NewLinkedHashSetString()
 			So(set.InArray("01"), ShouldBeFalse)
 			So(set.InArray("03"), ShouldBeFalse)
 			So(set.InArray("05"), ShouldBeFalse)
@@ -127,7 +126,7 @@ func TestLinkedHashSetStringAsSlice(t *testing.T) {
 	Convey("Given LinkedHashSetString.AsSlice", t, func() {
 		Convey("It should return the correct slice", func() {
 			expectedArray := []string{"0", "1", "2", "99", "93", "32", "00", "01"}
-			set := set.NewLinkedHashSetString(expectedArray...)
+			set := NewLinkedHashSetString(expectedArray...)
 
 			array := set.AsSlice()
 			So(array, ShouldHaveLength, len(expectedArray))
@@ -143,7 +142,7 @@ func TestLinkedHashSetStringAsInterface(t *testing.T) {
 	Convey("Given LinkedHashSetString.AsInterface", t, func() {
 		Convey("It should return the correct slice", func() {
 			expectedArray := []string{"0", "1", "2", "99", "93", "32", "00", "01"}
-			set := set.NewLinkedHashSetString(expectedArray...)
+			set := NewLinkedHashSetString(expectedArray...)
 
 			array := set.AsInterface()
 			So(array, ShouldHaveLength, len(expectedArray))
