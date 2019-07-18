@@ -1,4 +1,4 @@
-module set
+module github.com/StudioSol/set
 
 go 1.12
 
@@ -8,3 +8,4 @@ require (
 	github.com/smartystreets/assertions v0.0.0-20180301161246-7678a5452ebe
 	github.com/smartystreets/goconvey v0.0.0-20170602164621-9e8dc3f972df
 )
+
