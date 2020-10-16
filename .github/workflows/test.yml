@@ -1,5 +1,4 @@
-name: Go
-
+name: tests
 on:
   push:
     branches: [ master ]
@@ -7,17 +6,32 @@ on:
     branches: [ master ]
 
 jobs:
-
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      - name: Setup
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.15
 
-    - name: Set up Go 1.x
-      uses: actions/setup-go@v2
-      with:
-        go-version: ^1.13
-      id: go
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+          path: go/src/github.com/StudioSol/set
 
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v2
+      - name: Lint
+        run: |
+          curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s v1.31.0
+          ./bin/golangci-lint run
+
+      - name: Test
+        run: go test -race -cover -coverprofile=coverage.txt -covermode=atomic ./...
+
+      - name: Coverage
+        uses: codecov/codecov-action@v1.0.13
+        with:
+          file: ./coverage.txt
+          flags: unittests
+          name: codecov-umbrella
