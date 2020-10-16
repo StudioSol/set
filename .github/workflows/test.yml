@@ -19,7 +19,9 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 1
-          path: go/src/github.com/StudioSol/set
+
+      - name: Dependencies
+        run: go mod download
 
       - name: Lint
         run: |
