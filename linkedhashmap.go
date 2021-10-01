@@ -3,6 +3,7 @@ package set
 import (
 	"fmt"
 	"hash/fnv"
+	"log"
 )
 
 type entry struct {
@@ -147,7 +148,7 @@ func (l *linkedHashMap) hash(key interface{}) uint64 {
 	h := fnv.New64()
 	_, err := h.Write([]byte(fmt.Sprintf("%#v", key)))
 	if err != nil {
-		// noop
+		log.Print(err)
 	}
 	return h.Sum64()
 }
