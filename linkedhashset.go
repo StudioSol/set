@@ -2,17 +2,13 @@ package set
 
 import "golang.org/x/exp/constraints"
 
-type Element interface {
-	constraints.Integer | constraints.Float
-}
-
 // LinkedHashSet linked hash set implementation using linkedHashMap as its
 // underlying data structure.
 //
 // - Does not allow storing duplicated values
 // - Does not allow storing nil values
 // - Maintains insertion order over iteration
-type LinkedHashSet[T Element] struct {
+type LinkedHashSet[T constraints.Ordered] struct {
 	linkedHashMap *linkedHashMap
 }
 
@@ -77,7 +73,7 @@ func (l *LinkedHashSet[T]) InArray(search T) bool {
 }
 
 // NewLinkedHashSet returns a new LinkedHashSet with the provided items
-func NewLinkedHashSet[T Element](values []T) *LinkedHashSet[T] {
+func NewLinkedHashSet[T constraints.Ordered](values []T) *LinkedHashSet[T] {
 	lhm := &LinkedHashSet[T]{
 		linkedHashMap: newLinkedHashMap(),
 	}
