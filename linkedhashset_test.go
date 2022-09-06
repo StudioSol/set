@@ -16,7 +16,7 @@ type testStruct struct {
 
 func init() {
 	for i := 0; i < giantSliceLength; i++ {
-		giantStringSlice[i] = strconv.Itoa(i + 1)
+		giantGenericSlice[i] = strconv.Itoa(i + 1)
 	}
 }
 
@@ -55,32 +55,32 @@ func TestLinkedHashSetAdd(t *testing.T) {
 
 func TestLinkedHashSetRemove(t *testing.T) {
 	set := NewLinkedHashSet[string]()
-	set.Add(giantStringSlice...)
+	set.Add(giantGenericSlice...)
 
 	// first element
-	set.Remove(giantStringSlice[0])
-	set.Remove(giantStringSlice[0])
-	set.Remove(giantStringSlice[0])
-	set.Remove(giantStringSlice[0])
+	set.Remove(giantGenericSlice[0])
+	set.Remove(giantGenericSlice[0])
+	set.Remove(giantGenericSlice[0])
+	set.Remove(giantGenericSlice[0])
 
 	// last element
-	set.Remove(giantStringSlice[len(giantStringSlice)-1])
+	set.Remove(giantGenericSlice[len(giantGenericSlice)-1])
 
 	// arbitrary elements
-	set.Remove(giantStringSlice[1000], giantStringSlice[2000], giantStringSlice[3000])
-	require.Equal(t, set.Length(), len(giantStringSlice)-5)
+	set.Remove(giantGenericSlice[1000], giantGenericSlice[2000], giantGenericSlice[3000])
+	require.Equal(t, set.Length(), len(giantGenericSlice)-5)
 }
 
 func TestLinkedHashSetIter(t *testing.T) {
 	set := NewLinkedHashSet[string]()
-	set.Add(giantStringSlice...)
+	set.Add(giantGenericSlice...)
 
 	var (
 		i                  int
 		somethingWentWrong bool
 	)
 	for value := range set.Iter() {
-		if value != giantStringSlice[i] {
+		if value != giantGenericSlice[i] {
 			somethingWentWrong = true
 			break
 		}
@@ -105,8 +105,8 @@ func TestLinkedHashSetLength(t *testing.T) {
 
 	t.Run("big set", func(t *testing.T) {
 		set := NewLinkedHashSet[string]()
-		set.Add(giantStringSlice...)
-		require.Equal(t, set.Length(), len(giantStringSlice))
+		set.Add(giantGenericSlice...)
+		require.Equal(t, set.Length(), len(giantGenericSlice))
 	})
 }
 
