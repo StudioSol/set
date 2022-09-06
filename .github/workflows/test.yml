@@ -25,7 +25,7 @@ jobs:
 
       - name: Lint
         run: |
-          curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s v1.31.0
+          curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s v1.49.0
           ./bin/golangci-lint run
 
       - name: Test
