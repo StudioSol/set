@@ -6,3 +6,5 @@
     - Code improvements
 - [Rodrigo Brito](https://github.com/rodrigo-brito)
     - Test coverage improvements
+- [Felipe Ribeiro](https://github.com/ftcribeiro)
+    - Generics Support
