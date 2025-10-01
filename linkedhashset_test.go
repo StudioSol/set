@@ -196,3 +196,32 @@ func TestLinkedHashSetAsInterface(t *testing.T) {
 		require.Equal(t, value.(testStruct), expectedArray[i])
 	}
 }
+
+func TestLinkedHashSetContains(t *testing.T) {
+	t.Run("found", func(t *testing.T) {
+		set := NewLinkedHashSet("02", "04", "06", "08")
+		println(set.linkedHashMap.table)
+		println(set.linkedHashMap.Get("02")) // debug
+
+		require.True(t, set.Contains("02"))
+		require.True(t, set.Contains("04"))
+		require.True(t, set.Contains("06"))
+		require.True(t, set.Contains("08"))
+	})
+
+	t.Run("not found", func(t *testing.T) {
+		set := NewLinkedHashSet("02", "04", "06", "08")
+		require.False(t, set.Contains("01"))
+		require.False(t, set.Contains("03"))
+		require.False(t, set.Contains("05"))
+		require.False(t, set.Contains("07"))
+	})
+
+	t.Run("empty", func(t *testing.T) {
+		set := NewLinkedHashSet[string]()
+		require.False(t, set.Contains("01"))
+		require.False(t, set.Contains("03"))
+		require.False(t, set.Contains("05"))
+		require.False(t, set.Contains("07"))
+	})
+}
