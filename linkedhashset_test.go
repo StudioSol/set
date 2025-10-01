@@ -200,8 +200,6 @@ func TestLinkedHashSetAsInterface(t *testing.T) {
 func TestLinkedHashSetContains(t *testing.T) {
 	t.Run("found", func(t *testing.T) {
 		set := NewLinkedHashSet("02", "04", "06", "08")
-		println(set.linkedHashMap.table)
-		println(set.linkedHashMap.Get("02")) // debug
 
 		require.True(t, set.Contains("02"))
 		require.True(t, set.Contains("04"))
