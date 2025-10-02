@@ -61,6 +61,7 @@ func (l *LinkedHashSet[T]) AsInterface() []interface{} {
 }
 
 // InArray returns whether the given item is in array or not
+// DEPRECATED: use Contains method instead
 func (l *LinkedHashSet[T]) InArray(search T) bool {
 	for item := range l.Iter() {
 		if item == search {
@@ -79,4 +80,9 @@ func NewLinkedHashSet[T comparable](items ...T) *LinkedHashSet[T] {
 		lhm.Add(items...)
 	}
 	return lhm
+}
+
+func (l *LinkedHashSet[T]) Contains(search T) bool {
+	_, contains := l.linkedHashMap.Get(search)
+	return contains
 }

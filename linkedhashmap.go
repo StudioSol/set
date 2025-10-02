@@ -61,21 +61,21 @@ func (l *linkedHashMap) Put(key, value interface{}) {
 }
 
 // Get gets an entry from the linked hash map
-func (l *linkedHashMap) Get(key interface{}) interface{} {
+func (l *linkedHashMap) Get(key interface{}) (value interface{}, found bool) {
 	hash := l.hash(key)
 	if _, ok := l.table[hash]; !ok {
-		return nil
+		return nil, false
 	}
 
 	tmp := l.table[hash]
 	for tmp != nil {
 		if tmp.key == key {
-			return tmp.value
+			return tmp.value, true
 		}
 		tmp = tmp.after
 	}
 
-	return nil
+	return nil, false
 }
 
 // Remove removes an entry from the linked hash map

@@ -12,13 +12,17 @@ func TestGet(t *testing.T) {
 		set := newLinkedHashMap()
 		value := rand.Int()
 		set.Put("test", value)
-		require.Equal(t, value, set.Get("test"))
+
+		v, exists := set.Get("test")
+		require.Equal(t, value, v)
+		require.True(t, exists)
 	})
 
 	t.Run("When the key not exists", func(t *testing.T) {
 		set := newLinkedHashMap()
-		result := set.Get("bla")
+		result, exists := set.Get("bla")
 		require.Nil(t, result)
+		require.False(t, exists)
 	})
 }
 
@@ -27,7 +31,10 @@ func TestPut(t *testing.T) {
 		set := newLinkedHashMap()
 		value := rand.Int()
 		set.Put("test", value)
-		require.Equal(t, value, set.Get("test"))
+
+		v, exists := set.Get("test")
+		require.Equal(t, value, v)
+		require.True(t, exists)
 	})
 
 	t.Run("invalid key", func(t *testing.T) {
@@ -50,7 +57,10 @@ func TestRemove(t *testing.T) {
 
 		set.Remove(1)
 		require.Equal(t, 2, set.Length())
-		require.Nil(t, set.Get(1))
+
+		v, exists := set.Get(1)
+		require.Nil(t, v)
+		require.False(t, exists)
 	})
 
 	t.Run("last value", func(t *testing.T) {
@@ -61,7 +71,10 @@ func TestRemove(t *testing.T) {
 
 		set.Remove(3)
 		require.Equal(t, 2, set.Length())
-		require.Nil(t, set.Get(3))
+
+		v, exists := set.Get(3)
+		require.Nil(t, v)
+		require.False(t, exists)
 	})
 
 	t.Run("middle value", func(t *testing.T) {
@@ -72,7 +85,10 @@ func TestRemove(t *testing.T) {
 
 		set.Remove(2)
 		require.Equal(t, 2, set.Length())
-		require.Nil(t, set.Get(2))
+
+		v, exists := set.Get(2)
+		require.Nil(t, v)
+		require.False(t, exists)
 	})
 
 	t.Run("single value", func(t *testing.T) {
@@ -80,6 +96,9 @@ func TestRemove(t *testing.T) {
 		set.Put(1, 1)
 		set.Remove(1)
 		require.Equal(t, 0, set.Length())
-		require.Nil(t, set.Get(1))
+
+		v, exists := set.Get(1)
+		require.Nil(t, v)
+		require.False(t, exists)
 	})
 }
